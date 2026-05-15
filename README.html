@@ -1,0 +1,303 @@
+<html lang="ko"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fireball GIF Embed</title>
+  <style>
+    :root {
+      --ink: #101418;
+      --muted: #67707c;
+      --line: #dfe5ec;
+      --paper: #ffffff;
+      --soft: #f3f6f9;
+      --red: #e73832;
+      --blue: #19a7ce;
+      --yellow: #ffd24c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans KR", sans-serif;
+      background:
+        linear-gradient(135deg, rgba(231, 56, 50, 0.08), transparent 32%),
+        linear-gradient(315deg, rgba(25, 167, 206, 0.12), transparent 36%),
+        var(--soft);
+      color: var(--ink);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 44px 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      min-height: calc(100vh - 88px);
+      align-items: center;
+      gap: 28px;
+    }
+
+    .media {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(16, 20, 24, 0.12);
+      border-radius: 8px;
+      background: #080a0c;
+      box-shadow: 0 28px 70px rgba(16, 20, 24, 0.22);
+    }
+
+    .media::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, transparent 62%, rgba(0, 0, 0, 0.38));
+      z-index: 1;
+    }
+
+    .gif-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .gif-link img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .play {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel {
+      padding: 34px;
+      border: 1px solid rgba(16, 20, 24, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 50px rgba(16, 20, 24, 0.12);
+      backdrop-filter: blur(16px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--red);
+      box-shadow: 14px 0 0 var(--blue), 28px 0 0 var(--yellow);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 28px 0;
+    }
+
+    .point {
+      min-height: 86px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .point strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .point span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .button.secondary {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .embed-box {
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .embed-box h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    code {
+      display: block;
+      overflow-x: auto;
+      color: #2a333d;
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre;
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        padding: 22px 0;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .panel {
+        padding: 24px;
+      }
+
+      .points {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="GIF embed preview">
+      <div class="media">
+        <a class="gif-link" href="https://example.com/product-page" target="_blank" rel="noopener">
+          <img src="./02.gif" alt="Fireball license plate cover wash test">
+          <div class="caption">
+            <span>WASH TEST GIF PREVIEW</span>
+            <span class="play" aria-hidden="true">▶</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="panel">
+        <div class="eyebrow">Fireball</div>
+        <h1>License plate cover wash test</h1>
+        <p class="lead">
+          공개 URL로 업로드한 GIF를 제품 상세페이지, GitHub README, 외부 웹페이지에 같은 방식으로 임베드할 수 있습니다.
+        </p>
+
+        <div class="points">
+          <div class="point">
+            <strong>GIF URL</strong>
+            <span>외부에서 바로 열리는 공개 주소를 사용합니다.</span>
+          </div>
+          <div class="point">
+            <strong>Responsive</strong>
+            <span>모바일과 데스크톱에서 너비에 맞춰 표시됩니다.</span>
+          </div>
+          <div class="point">
+            <strong>Clickable</strong>
+            <span>GIF 클릭 시 원하는 상세페이지로 이동합니다.</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="https://example.com/product-page" target="_blank" rel="noopener">View product</a>
+          <a class="button secondary" href="./02.gif" target="_blank" rel="noopener">Open GIF</a>
+        </div>
+
+        <div class="embed-box">
+          <h2>Embed code</h2>
+          <code>&lt;a href="https://example.com/product-page" target="_blank" rel="noopener"&gt;
+  &lt;img
+    src="https://your-public-url.com/02.gif"
+    alt="Fireball license plate cover wash test"
+    style="max-width:100%;height:auto;"
+  &gt;
+&lt;/a&gt;</code>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+</body></html>
